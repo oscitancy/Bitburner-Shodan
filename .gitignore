@@ -1,0 +1,7 @@
+*
+!.gitignore
+!.gitattributes
+!readme.md
+!/modules
+!*.js
+!*.txt
