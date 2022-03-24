@@ -10,7 +10,7 @@ export async function main(ns)
 {
     ns.disableLog('disableLog');
     ns.disableLog('sleep');
-	ns.tail();
+    ns.tail();
 
     var player = ns.getPlayer();
     if(!player.hasTixApiAccess || !player.has4SDataTixApi)
