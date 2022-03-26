@@ -3,5 +3,6 @@
 !.gitattributes
 !readme.md
 !/modules
+!/tools
 !*.js
 !*.txt
