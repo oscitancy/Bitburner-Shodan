@@ -15,7 +15,7 @@ export async function main(ns)
 	ns.disableLog('sleep');
 	ns.disableLog('exec');
 	ns.disableLog('getHackingLevel');
-	
+
 	ns.tail();
 
 	getAllHostnames(ns);
@@ -36,7 +36,7 @@ export async function main(ns)
 				{
 					await autoAttack(ns, host);
 				}
-			}				
+			}
 		}
 		await ns.sleep(1000);
 	}
@@ -131,7 +131,7 @@ function microStatus(ns, host, metadata)
 async function autoAttack(ns, host)
 {
 	if (host['maxRam'] === 0) return;
-	
+
 	var maxThreads = host['maxRam'] / 2;
 	var highDifficulty = host['hackDifficulty'] >= (host['minDifficulty'] * HIGH_DIFFICULTY_MULTIPLIER);
 	var lowMoney = host['moneyAvailable'] <= (host['moneyMax'] * LOW_MONEY_MULTIPLIER);
