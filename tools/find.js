@@ -26,7 +26,7 @@ function mapHost(ns, hostname, knownHostnames, fileType)
         ns.tprintf("%s", hostname);
         files.forEach((file) =>
         {
-            if (file.endsWith(fileType)) ns.tprintf("  - %s", file);
+            if (file.endsWith(fileType)) ns.tprintf("    %s", file);
         });
 		ns.tprintf("\n");
     }
