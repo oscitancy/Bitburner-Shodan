@@ -2,7 +2,8 @@
 !.gitignore
 !.gitattributes
 !readme.md
-!/modules
+!/apps
+!/lib
 !/tools
 !*.js
 !*.txt
