@@ -1,11 +1,10 @@
-/** @param {import(".").NS } ns */
-
 import * as Table from "/modules/table.js";
 
+const HOSTNAMES_DATA_PATH = '/data/hostnames.dat';
 var hostnames = null;
 
-
 ///** @param {NS} ns **/
+/** @param {import(".").NS } ns */
 export async function main(ns)
 {
 	ns.disableLog("disableLog");
@@ -17,7 +16,7 @@ export async function main(ns)
 	var table = new Table.Table(ns);
 	table.addColumn('Hostname', 18, 'left');
 	table.addColumn('IP', 8, 'right');
-	table.addColumn('Memory (GiB)', 13, 'centre');
+	table.addColumn('Memory (GiB)', 17, 'centre');
 	table.addColumn('Diff', 6, 'right');
 	table.addColumn('Cash', 6, 'right');
 	table.addColumn('AD', 2, 'right');
@@ -30,9 +29,7 @@ export async function main(ns)
 
 	while (true)
 	{
-		hostnames = new Set();
-		mapHostnames(ns, 'home');
-		cleanHostnames(ns);
+		fetchHostnames(ns);
 		table.clearRows();
 
 		hostnames.forEach((hostname) =>
@@ -41,7 +38,7 @@ export async function main(ns)
 			var server = ns.getServer(hostname);
 			rowData.push(server['hostname']);
 			rowData.push(server['ip']);
-			var memory = server['ramUsed'].toString().padStart(5) + " / " + server['maxRam'].toString().padStart(5);
+			var memory = server['ramUsed'].toFixed(0).toString().padStart(7) + " / " + server['maxRam'].toString().padStart(7);
 			if (server['maxRam'] === 0) memory = '-';
 			rowData.push(memory);
 			var difficulty = (server['hackDifficulty'] - server['minDifficulty']).toFixed(2);
@@ -67,24 +64,8 @@ export async function main(ns)
 	}
 }
 
-function mapHostnames(ns, hostname)
+function fetchHostnames(ns)
 {
-	hostnames.add(hostname);
-	var links = ns.scan(hostname);
-	links.forEach((link) =>
-	{
-		if (!hostnames.has(link))
-		{
-			mapHostnames(ns, link);
-		}
-	});
-}
-
-function cleanHostnames(ns)
-{
-	hostnames.delete('home');
-	for (var i = 1; i <= 25; i++)
-	{
-		hostnames.delete('sv-' + i.toString().padStart(2, '0'));
-	}
+	var data = ns.read(HOSTNAMES_DATA_PATH);
+    hostnames = JSON.parse(data);
 }
