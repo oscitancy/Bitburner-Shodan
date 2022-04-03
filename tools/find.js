@@ -31,9 +31,11 @@ function mapHost(ns, hostname, knownHostnames, fileType)
 		ns.tprintf("\n");
     }
 	var links = ns.scan(hostname);
-	links.shift(); // Remove parent link
 	links.forEach((link) =>
 	{
-		mapHost(ns, link, knownHostnames, fileType);
+		if (!knownHostnames.has(link))
+		{
+			mapHost(ns, link, knownHostnames, fileType);
+		}
 	});
 }
