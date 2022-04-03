@@ -1,4 +1,4 @@
-import * as Table from "/modules/table.js";
+import * as Table from "/lib/table.js";
 
 const HOSTNAMES_DATA_PATH = '/data/hostnames.dat';
 var hostnames = null;
