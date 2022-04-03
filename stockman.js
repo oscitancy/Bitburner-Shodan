@@ -1,8 +1,8 @@
 import * as Table from "/lib/table.js";
 
 const HISTORY_LENGTH = 10;
-const FORECAST_BUY = 0.1;
-const FORECAST_SELL = 0.06;
+const FORECAST_BUY = 0.09;
+const FORECAST_SELL = 0.05;
 
 var stockData = null;
 
@@ -52,7 +52,7 @@ export async function main(ns)
             if (shares > 0)
             {
                 //if (lowForecast || runningAverage < 0)
-                if (runningVolatility < -0.2 || forecast < FORECAST_SELL)
+                if (runningVolatility < -20 || forecast < FORECAST_SELL)
                 {
                     ns.stock.sell(symbol, shares);
                     ns.print("Emergency sold stocks: " + symbol);
@@ -61,7 +61,7 @@ export async function main(ns)
             else
             {
                 //if (highForecast && runningAverage > 0)
-                if (runningVolatility > 0.2 && forecast > FORECAST_BUY)
+                if (runningVolatility >= 10 && forecast >= FORECAST_BUY)
                 {
                     ns.stock.buy(symbol, maxShares);
                     ns.print("Buying stocks: " + symbol);
